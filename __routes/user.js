@@ -16,7 +16,7 @@ const auth = require('../__middleware/auth');
         }
 */
 router.post('/user', async (req, res) => {
-    console.log('here');
+    console.log('*** IN CREATE USER ***');
     const user = new User(req.body);
     let errors = [];
     if(user.age < 13) {
@@ -34,7 +34,7 @@ router.post('/user', async (req, res) => {
         res.status(400).send({errors});
     }
     try {
-        // await user.save()
+        await user.save()
         const token = await user.generateAuthToken(user.email, user.password)
         res.status(201).send(user.toJSON()) //201 status = CREATED
     } catch (e) {
@@ -54,6 +54,7 @@ router.post('/user', async (req, res) => {
         }
 */
 router.post('/user/login', async (req, res) => {
+    console.log('*** IN LOGIN USER ***')
     try {
         const user = await User.findUserByCredentials(req.body.email, req.body.password);
         const token = await user.generateAuthToken();
