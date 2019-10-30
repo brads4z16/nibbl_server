@@ -6,7 +6,7 @@ const auth = require('../__middleware/auth');
 
 //Create root chunk
 router.post('/chunk/root', auth, async (req, res) => {
-    console.log(req.body);
+    
     const homeChunk = new Chunk(req.body);
     try{
         await homeChunk.save();
@@ -17,6 +17,7 @@ router.post('/chunk/root', auth, async (req, res) => {
 });
 
 router.get('/chunk/root', auth, async (req, res) => {
+    console.log('*** GET ROOT CHUNK ***');
     try {
         const root = await Chunk.findById(keys.rootChunkid);
         if(!root) {
@@ -29,6 +30,7 @@ router.get('/chunk/root', auth, async (req, res) => {
 });
 
 router.get('/chunk/:chunkid', auth, async (req, res) => {
+    console.log('*** GET CHUNK BY ID ***');
     try {
         const chunk = await Chunk.findById(req.params.chunkid);
         if(!chunk) {

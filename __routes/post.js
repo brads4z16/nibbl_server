@@ -20,6 +20,7 @@ const auth = require('../__middleware/auth');
         }
 */
 router.post('/post/create', async (req, res) => {
+    console.log('*** CREATE POSTS ***');
     try {
         const owner = await User.findById(req.body.userid);
         const post = new Post({
@@ -48,11 +49,9 @@ router.post('/post/create', async (req, res) => {
 */
 router.get('/post/chunk/:chunkid', auth, async (req, res) => {
     try {
-        console.log(req.params.chunkid);
-        // const chunkid = req.params.chunkid.toLowerCase() === "home" ? keys.rootChunkid : req.body.chunkid 
+        console.log('*** GET POSTS ***')
         const chunkid = req.params.chunkid;
         const posts = await Post.find({chunkid});
-        console.log(posts);
         res.status(200).send(posts);
     } catch(e) {
         res.status(400).send('Error retrieving posts');
