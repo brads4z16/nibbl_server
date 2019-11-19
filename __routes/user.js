@@ -19,6 +19,9 @@ router.post('/user', async (req, res) => {
     console.log('*** IN CREATE USER ***');
     const user = new User(req.body);
     let errors = [];
+    if(user.username.length < 5 || user.username.length > 12) {
+        errors.push('Username must be between 5 and 12 characters');
+    }
     if(user.age < 13) {
         errors.push('Must be 13 years or older');
     }
